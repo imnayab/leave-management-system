@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     async login() {
-      const res = await api.post("/api/auth/login", this.$data);
+      const res = await api.post("/auth/login", this.$data);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       window.location.reload();
     }
