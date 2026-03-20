@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async signup() {
-      await api.post("/auth/signup", this.$data);
+      await api.post("/api/auth/signup", this.$data);
       alert("Signup success");
     }
   }
