@@ -1,5 +1,7 @@
 import axios from "axios";
 
-export default axios.create({
-  baseURL: "http://localhost:5000/api",
+const api = axios.create({
+  baseURL: "http://16.176.2.233:5000/api" // 👈 IMPORTANT
 });
+
+export default api;
