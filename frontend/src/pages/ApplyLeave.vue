@@ -35,27 +35,26 @@ export default {
   },
   methods: {
     async applyLeave() {
-      try {
-        const user = JSON.parse(localStorage.getItem("user"));
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-        await api.post("/leave/apply", {
-          ...this.$data,
-          userId: user._id
-        });
+    await api.post("/api/leave/apply", {
+      ...this.$data,
+      userId: user._id
+    });
 
-        alert("Leave applied ✅");
+    alert("Leave applied ✅");
 
-        // ✅ CLEAR FORM (IMPORTANT)
-        this.type = "";
-        this.startDate = "";
-        this.endDate = "";
-        this.reason = "";
+    // clear form
+    this.type = "";
+    this.startDate = "";
+    this.endDate = "";
+    this.reason = "";
 
-      } catch (err) {
-        console.error(err);
-        alert("Something went wrong ❌");
-      }
-    }
+  } catch (err) {
+    console.log(err); // 👈 VERY IMPORTANT
+    alert("Something went wrong ❌");
   }
-};
+}
+}
 </script>
