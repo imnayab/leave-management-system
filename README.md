@@ -1,5 +1,6 @@
 # 🧾 Leave Management System
-
+## Live link 
+http://16.176.2.233:5173
 ## 📌 Overview
 A simple full-stack Leave Management System where employees can apply for leave and employers can approve or reject requests.
 
