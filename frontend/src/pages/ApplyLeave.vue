@@ -50,30 +50,23 @@ export default {
 
   methods: {
     async applyLeave() {
-      try {
-        const user = JSON.parse(localStorage.getItem("user"));
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-        await api.post("/api/leave/apply", {
-          type: this.type,
-          startDate: this.startDate,
-          endDate: this.endDate,
-          reason: this.reason,
-          userId: user._id
-        });
+    await api.post("/leave/apply", {
+      userId: user._id,
+      type: this.type,
+      reason: this.reason,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      status: "pending"
+    });
 
-        alert("Leave applied ✅");
-
-        // clear form
-        this.type = "";
-        this.startDate = "";
-        this.endDate = "";
-        this.reason = "";
-
-      } catch (err) {
-        console.log(err);
-        alert("Something went wrong ❌");
-      }
-    }
+    alert("Leave applied successfully ✅");
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong ❌");
   }
-};
+}
+}
 </script>
