@@ -42,31 +42,42 @@ export default {
   data() {
     return {
       type: "",
+      reason: "",
       startDate: "",
-      endDate: "",
-      reason: ""
+      endDate: ""
     };
   },
 
   methods: {
     async applyLeave() {
-  try {
-    const user = JSON.parse(localStorage.getItem("user"));
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
 
-    await api.post("/leave/apply", {
-      userId: user._id,
-      type: this.type,
-      reason: this.reason,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      status: "pending"
-    });
+        if (!user) {
+          alert("Please login again");
+          return;
+        }
 
-    alert("Leave applied successfully ✅");
-  } catch (err) {
-    console.error(err);
-    alert("Something went wrong ❌");
+        if (!this.type || !this.reason || !this.startDate || !this.endDate) {
+          alert("Fill all fields");
+          return;
+        }
+
+        await api.post("/leave/apply", {
+          userId: user._id,
+          type: this.type,
+          reason: this.reason,
+          startDate: this.startDate,
+          endDate: this.endDate,
+          status: "pending"
+        });
+
+        alert("Leave applied successfully ✅");
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong ❌");
+      }
+    }
   }
-}
-}
+};
 </script>
