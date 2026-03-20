@@ -1,32 +1,55 @@
 const router = require("express").Router();
 const Leave = require("../models/Leave");
 
-// Apply leave
+// 🔹 Apply Leave
 router.post("/apply", async (req, res) => {
-  const leave = await Leave.create(req.body);
-  res.json(leave);
+  try {
+    const leave = await Leave.create({
+      ...req.body,
+      status: "pending" // default status
+    });
+    res.json(leave);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error applying leave" });
+  }
 });
 
-// Get employee leaves
+// 🔹 Get Leaves of Logged-in User
 router.get("/my/:userId", async (req, res) => {
-  const leaves = await Leave.find({ userId: req.params.userId });
-  res.json(leaves);
+  try {
+    const leaves = await Leave.find({ userId: req.params.userId });
+    res.json(leaves);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error fetching user leaves" });
+  }
 });
 
-// Get all leaves (employer)
+// 🔹 Get All Leaves (Admin/Employer)
 router.get("/all", async (req, res) => {
-  const leaves = await Leave.find();
-  res.json(leaves);
+  try {
+    const leaves = await Leave.find().sort({ createdAt: -1 });
+    res.json(leaves);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error fetching all leaves" });
+  }
 });
 
-// Update status
+// 🔹 Update Leave Status (Approve / Reject)
 router.post("/update/:id", async (req, res) => {
-  const leave = await Leave.findByIdAndUpdate(
-    req.params.id,
-    { status: req.body.status },
-    { new: true }
-  );
-  res.json(leave);
+  try {
+    const updated = await Leave.findByIdAndUpdate(
+      req.params.id,
+      { status: req.body.status },
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error updating leave status" });
+  }
 });
 
 module.exports = router;
