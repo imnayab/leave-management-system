@@ -6,6 +6,11 @@ A simple full-stack Leave Management System where employees can apply for leave 
 
 ---
 
+## 👨‍💼 Admin LOGIN 
+    Email: admin@gmail.com
+    Password: 1234
+    Role: Employer
+    
 ## 🚀 Features
 
 ### 👨‍💻 Employee
